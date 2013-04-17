@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SuiteValue.UI.MVVM</id>
+    <version>1.0.0</version>
+    <title>SuiteValue.UI.MVVM</title>
+    <authors>Ariel</authors>
+    <owners>Ariel</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Supports MVVM for all infrastuctures</description>
+    <summary>Portable librarry for MVVM basic infrastucture</summary>
+    <references>
+      <reference file="SuiteValue.UI.MVVM.dll" />
+    </references>
+  </metadata>
+</package>

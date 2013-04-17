@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/IMdbService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/IMdbService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://demoepisodeservice.cloudapp.net/IMdbService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfTVShow">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TVShow" nillable="true" type="tns:TVShow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTVShow" nillable="true" type="tns:ArrayOfTVShow" />
+  <xs:complexType name="TVShow">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Actors" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Countries" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Directors" nillable="true" type="q3:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Episodes" nillable="true" type="tns:ArrayOfEpisode" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Genres" nillable="true" type="q4:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImdbUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Plot" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosterUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rating" type="xs:float" />
+      <xs:element minOccurs="0" name="RatingCount" type="xs:int" />
+      <xs:element minOccurs="0" name="ReleaseYear" type="xs:int" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TVShow" nillable="true" type="tns:TVShow" />
+  <xs:complexType name="ArrayOfEpisode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Episode" nillable="true" type="tns:Episode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEpisode" nillable="true" type="tns:ArrayOfEpisode" />
+  <xs:complexType name="Episode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Number" type="xs:int" />
+      <xs:element minOccurs="0" name="Season" type="xs:int" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Episode" nillable="true" type="tns:Episode" />
+  <xs:complexType name="TVShowReviews">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Reviews" nillable="true" type="tns:ArrayOfReview" />
+      <xs:element minOccurs="0" name="Show" nillable="true" type="tns:TVShow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TVShowReviews" nillable="true" type="tns:TVShowReviews" />
+  <xs:complexType name="ArrayOfReview">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Review" nillable="true" type="tns:Review" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReview" nillable="true" type="tns:ArrayOfReview" />
+  <xs:complexType name="Review">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Rating" type="xs:int" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Review" nillable="true" type="tns:Review" />
+</xs:schema>

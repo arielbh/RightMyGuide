@@ -1,0 +1,17 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IIMdbService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://demoepisodeservice.cloudapp.net/IMdbService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IIMdbService"
+                contract="ServiceReference.IIMdbService" name="BasicHttpBinding_IIMdbService" />
+        </client>
+    </system.serviceModel>
+</configuration>
