@@ -415,12 +415,12 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.TVShow> EndSearchShowByTitle(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IIMdbService/GetShowById", ReplyAction="http://tempuri.org/IIMdbService/GetShowByIdResponse")]
-        System.IAsyncResult BeginGetShowById(string id, bool includeEpisodes, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetShowById(string id, bool includeEpisodes, bool includeFutureEpisodes, System.AsyncCallback callback, object asyncState);
         
         RightMyGuide.DataAccess.ServiceReference.TVShow EndGetShowById(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IIMdbService/GetShowsByIds", ReplyAction="http://tempuri.org/IIMdbService/GetShowsByIdsResponse")]
-        System.IAsyncResult BeginGetShowsByIds(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetShowsByIds(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, bool includeFutureEpisodes, System.AsyncCallback callback, object asyncState);
         
         System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.TVShow> EndGetShowsByIds(System.IAsyncResult result);
         
@@ -438,6 +438,11 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         System.IAsyncResult BeginClearReviews(string id, System.AsyncCallback callback, object asyncState);
         
         void EndClearReviews(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IIMdbService/GetFutureEpisodes", ReplyAction="http://tempuri.org/IIMdbService/GetFutureEpisodesResponse")]
+        System.IAsyncResult BeginGetFutureEpisodes(string id, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode> EndGetFutureEpisodes(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -522,6 +527,25 @@ namespace RightMyGuide.DataAccess.ServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetFutureEpisodesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetFutureEpisodesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class IMdbServiceClient : System.ServiceModel.ClientBase<RightMyGuide.DataAccess.ServiceReference.IIMdbService>, RightMyGuide.DataAccess.ServiceReference.IIMdbService {
         
         private BeginOperationDelegate onBeginSearchShowByTitleDelegate;
@@ -559,6 +583,12 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         private EndOperationDelegate onEndClearReviewsDelegate;
         
         private System.Threading.SendOrPostCallback onClearReviewsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetFutureEpisodesDelegate;
+        
+        private EndOperationDelegate onEndGetFutureEpisodesDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetFutureEpisodesCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -625,6 +655,8 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> ClearReviewsCompleted;
         
+        public event System.EventHandler<GetFutureEpisodesCompletedEventArgs> GetFutureEpisodesCompleted;
+        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
@@ -682,8 +714,8 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult RightMyGuide.DataAccess.ServiceReference.IIMdbService.BeginGetShowById(string id, bool includeEpisodes, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetShowById(id, includeEpisodes, callback, asyncState);
+        System.IAsyncResult RightMyGuide.DataAccess.ServiceReference.IIMdbService.BeginGetShowById(string id, bool includeEpisodes, bool includeFutureEpisodes, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetShowById(id, includeEpisodes, includeFutureEpisodes, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -694,7 +726,8 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         private System.IAsyncResult OnBeginGetShowById(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string id = ((string)(inValues[0]));
             bool includeEpisodes = ((bool)(inValues[1]));
-            return ((RightMyGuide.DataAccess.ServiceReference.IIMdbService)(this)).BeginGetShowById(id, includeEpisodes, callback, asyncState);
+            bool includeFutureEpisodes = ((bool)(inValues[2]));
+            return ((RightMyGuide.DataAccess.ServiceReference.IIMdbService)(this)).BeginGetShowById(id, includeEpisodes, includeFutureEpisodes, callback, asyncState);
         }
         
         private object[] OnEndGetShowById(System.IAsyncResult result) {
@@ -710,11 +743,11 @@ namespace RightMyGuide.DataAccess.ServiceReference {
             }
         }
         
-        public void GetShowByIdAsync(string id, bool includeEpisodes) {
-            this.GetShowByIdAsync(id, includeEpisodes, null);
+        public void GetShowByIdAsync(string id, bool includeEpisodes, bool includeFutureEpisodes) {
+            this.GetShowByIdAsync(id, includeEpisodes, includeFutureEpisodes, null);
         }
         
-        public void GetShowByIdAsync(string id, bool includeEpisodes, object userState) {
+        public void GetShowByIdAsync(string id, bool includeEpisodes, bool includeFutureEpisodes, object userState) {
             if ((this.onBeginGetShowByIdDelegate == null)) {
                 this.onBeginGetShowByIdDelegate = new BeginOperationDelegate(this.OnBeginGetShowById);
             }
@@ -726,12 +759,13 @@ namespace RightMyGuide.DataAccess.ServiceReference {
             }
             base.InvokeAsync(this.onBeginGetShowByIdDelegate, new object[] {
                         id,
-                        includeEpisodes}, this.onEndGetShowByIdDelegate, this.onGetShowByIdCompletedDelegate, userState);
+                        includeEpisodes,
+                        includeFutureEpisodes}, this.onEndGetShowByIdDelegate, this.onGetShowByIdCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult RightMyGuide.DataAccess.ServiceReference.IIMdbService.BeginGetShowsByIds(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetShowsByIds(ids, includeEpisodes, callback, asyncState);
+        System.IAsyncResult RightMyGuide.DataAccess.ServiceReference.IIMdbService.BeginGetShowsByIds(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, bool includeFutureEpisodes, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetShowsByIds(ids, includeEpisodes, includeFutureEpisodes, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -742,7 +776,8 @@ namespace RightMyGuide.DataAccess.ServiceReference {
         private System.IAsyncResult OnBeginGetShowsByIds(object[] inValues, System.AsyncCallback callback, object asyncState) {
             System.Collections.ObjectModel.ObservableCollection<string> ids = ((System.Collections.ObjectModel.ObservableCollection<string>)(inValues[0]));
             bool includeEpisodes = ((bool)(inValues[1]));
-            return ((RightMyGuide.DataAccess.ServiceReference.IIMdbService)(this)).BeginGetShowsByIds(ids, includeEpisodes, callback, asyncState);
+            bool includeFutureEpisodes = ((bool)(inValues[2]));
+            return ((RightMyGuide.DataAccess.ServiceReference.IIMdbService)(this)).BeginGetShowsByIds(ids, includeEpisodes, includeFutureEpisodes, callback, asyncState);
         }
         
         private object[] OnEndGetShowsByIds(System.IAsyncResult result) {
@@ -758,11 +793,11 @@ namespace RightMyGuide.DataAccess.ServiceReference {
             }
         }
         
-        public void GetShowsByIdsAsync(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes) {
-            this.GetShowsByIdsAsync(ids, includeEpisodes, null);
+        public void GetShowsByIdsAsync(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, bool includeFutureEpisodes) {
+            this.GetShowsByIdsAsync(ids, includeEpisodes, includeFutureEpisodes, null);
         }
         
-        public void GetShowsByIdsAsync(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, object userState) {
+        public void GetShowsByIdsAsync(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, bool includeFutureEpisodes, object userState) {
             if ((this.onBeginGetShowsByIdsDelegate == null)) {
                 this.onBeginGetShowsByIdsDelegate = new BeginOperationDelegate(this.OnBeginGetShowsByIds);
             }
@@ -774,7 +809,8 @@ namespace RightMyGuide.DataAccess.ServiceReference {
             }
             base.InvokeAsync(this.onBeginGetShowsByIdsDelegate, new object[] {
                         ids,
-                        includeEpisodes}, this.onEndGetShowsByIdsDelegate, this.onGetShowsByIdsCompletedDelegate, userState);
+                        includeEpisodes,
+                        includeFutureEpisodes}, this.onEndGetShowsByIdsDelegate, this.onGetShowsByIdsCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -919,6 +955,52 @@ namespace RightMyGuide.DataAccess.ServiceReference {
                         id}, this.onEndClearReviewsDelegate, this.onClearReviewsCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult RightMyGuide.DataAccess.ServiceReference.IIMdbService.BeginGetFutureEpisodes(string id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetFutureEpisodes(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode> RightMyGuide.DataAccess.ServiceReference.IIMdbService.EndGetFutureEpisodes(System.IAsyncResult result) {
+            return base.Channel.EndGetFutureEpisodes(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetFutureEpisodes(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            return ((RightMyGuide.DataAccess.ServiceReference.IIMdbService)(this)).BeginGetFutureEpisodes(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetFutureEpisodes(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode> retVal = ((RightMyGuide.DataAccess.ServiceReference.IIMdbService)(this)).EndGetFutureEpisodes(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetFutureEpisodesCompleted(object state) {
+            if ((this.GetFutureEpisodesCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetFutureEpisodesCompleted(this, new GetFutureEpisodesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetFutureEpisodesAsync(string id) {
+            this.GetFutureEpisodesAsync(id, null);
+        }
+        
+        public void GetFutureEpisodesAsync(string id, object userState) {
+            if ((this.onBeginGetFutureEpisodesDelegate == null)) {
+                this.onBeginGetFutureEpisodesDelegate = new BeginOperationDelegate(this.OnBeginGetFutureEpisodes);
+            }
+            if ((this.onEndGetFutureEpisodesDelegate == null)) {
+                this.onEndGetFutureEpisodesDelegate = new EndOperationDelegate(this.OnEndGetFutureEpisodes);
+            }
+            if ((this.onGetFutureEpisodesCompletedDelegate == null)) {
+                this.onGetFutureEpisodesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetFutureEpisodesCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetFutureEpisodesDelegate, new object[] {
+                        id}, this.onEndGetFutureEpisodesDelegate, this.onGetFutureEpisodesCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -1011,10 +1093,11 @@ namespace RightMyGuide.DataAccess.ServiceReference {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetShowById(string id, bool includeEpisodes, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[2];
+            public System.IAsyncResult BeginGetShowById(string id, bool includeEpisodes, bool includeFutureEpisodes, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[3];
                 _args[0] = id;
                 _args[1] = includeEpisodes;
+                _args[2] = includeFutureEpisodes;
                 System.IAsyncResult _result = base.BeginInvoke("GetShowById", _args, callback, asyncState);
                 return _result;
             }
@@ -1025,10 +1108,11 @@ namespace RightMyGuide.DataAccess.ServiceReference {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetShowsByIds(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[2];
+            public System.IAsyncResult BeginGetShowsByIds(System.Collections.ObjectModel.ObservableCollection<string> ids, bool includeEpisodes, bool includeFutureEpisodes, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[3];
                 _args[0] = ids;
                 _args[1] = includeEpisodes;
+                _args[2] = includeFutureEpisodes;
                 System.IAsyncResult _result = base.BeginInvoke("GetShowsByIds", _args, callback, asyncState);
                 return _result;
             }
@@ -1077,6 +1161,19 @@ namespace RightMyGuide.DataAccess.ServiceReference {
             public void EndClearReviews(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 base.EndInvoke("ClearReviews", _args, result);
+            }
+            
+            public System.IAsyncResult BeginGetFutureEpisodes(string id, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = id;
+                System.IAsyncResult _result = base.BeginInvoke("GetFutureEpisodes", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode> EndGetFutureEpisodes(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode> _result = ((System.Collections.ObjectModel.ObservableCollection<RightMyGuide.DataAccess.ServiceReference.Episode>)(base.EndInvoke("GetFutureEpisodes", _args, result)));
+                return _result;
             }
         }
     }

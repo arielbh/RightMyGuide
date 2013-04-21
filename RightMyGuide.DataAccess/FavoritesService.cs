@@ -1,11 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 using RightMyGuide.DataAccess.ServiceReference;
 using Windows.Storage;
 
-namespace RightMyGuide.WindowsPhone.Services
+namespace RightMyGuide.DataAccess
 {
     public class FavoritesService
     {
@@ -13,8 +22,8 @@ namespace RightMyGuide.WindowsPhone.Services
         {
             var local = Windows.Storage.ApplicationData.Current.LocalFolder;
             var file = await local.CreateFileAsync("favs.txt", CreationCollisionOption.OpenIfExists);
-            
- 
+
+
             using (var s = await file.OpenStreamForWriteAsync())
             {
                 // Read the data.

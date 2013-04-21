@@ -16,51 +16,42 @@ namespace RightMyGuide.WindowsPhone.ViewModels
             _navigator = navigator;
             _asyncViewModel = asyncViewModel;
             Results = new ObservableCollection<TVShow>();
-            App.IMdbServiceClient.GetShowByIdCompleted += IMdbServiceClient_GetShowByIdCompleted;
+            App.IMdbServiceClient.GetShowsByIdsCompleted += IMdbServiceClient_GetShowsByIdsCompleted;
         }
 
-        void IMdbServiceClient_GetShowByIdCompleted(object sender, DataAccess.ServiceReference.GetShowByIdCompletedEventArgs e)
+        void IMdbServiceClient_GetShowsByIdsCompleted(object sender, GetShowsByIdsCompletedEventArgs e)
         {
             if (e.UserState == this)
             {
                 if (e.Cancelled || e.Error != null) return;
                 if (e.Result != null)
                 {
-                    Results.Add(e.Result);
+                    foreach (var show in e.Result)
+                        Results.Add(show);
                 }
-                if (Results.Count == _expectedToLoad)
-                {
-                    OnPropertyChanged(() => NoItemsVisibility);
-                    _asyncViewModel.IsInAsync = false;
-                }
+                _asyncViewModel.IsInAsync = false;
             }
         }
         public async override void Activate()
         {
             base.Activate();
+            NoItemsVisibility = Visibility.Collapsed;
             Results.Clear();
 
             _asyncViewModel.IsInAsync = true;
             _asyncViewModel.AsyncMessage = "Loading favorites...";
             var ids = await App.FavoritesService.GetFavorites();
-            if (ids == null)
+            if (ids == null || (ids.Length == 0))
             {
                 _asyncViewModel.IsInAsync = false;
-                OnPropertyChanged(() => NoItemsVisibility);
+                NoItemsVisibility = Visibility.Visible;
+                
                 return;
             }
-            _expectedToLoad = ids.Length;
-
-            foreach (var id in ids)
-            {
-                
-                App.IMdbServiceClient.GetShowByIdAsync(id, false, this);
-            }
-
+            App.IMdbServiceClient.GetShowsByIdsAsync(new ObservableCollection<string>(ids), false, false, this);
         }
 
         private ObservableCollection<TVShow> _results;
-        private int _expectedToLoad;
 
         public ObservableCollection<TVShow> Results
         {
@@ -74,7 +65,21 @@ namespace RightMyGuide.WindowsPhone.ViewModels
                 }
             }
         }
-        public Visibility NoItemsVisibility { get { return Results.Count == 0 ? Visibility.Visible : Visibility.Collapsed; } }
+
+        private Visibility _noItemsVisibility;
+
+        public Visibility NoItemsVisibility
+        {
+            get { return _noItemsVisibility; }
+            set
+            {
+                if (value != _noItemsVisibility)
+                {
+                    _noItemsVisibility = value;
+                    OnPropertyChanged(() => NoItemsVisibility);
+                }
+            }
+        }
 
         private TVShow _selectedShow;
 

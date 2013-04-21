@@ -18,7 +18,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <phone:Pivot Title="My Right Guide" SelectionChanged="Pivot_OnSelectionChanged">
+        <phone:Pivot Title="My Right Guide" SelectionChanged="Pivot_OnSelectionChanged" x:Name="pivot">
             <!--Pivot item one-->
             <phone:PivotItem Header="main">
                 <controls:TemplateContentControl 
@@ -36,5 +36,11 @@
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>
-    
+
+    <controls:PhoneApplicationPage.ApplicationBar>
+        <controls:ApplicationBar IsVisible="True" Mode="Default">
+            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/microphone.png" Text="Command" Command="{Binding StartSpeechCommand, Mode=OneTime}"  />
+            </controls:ApplicationBar>
+    </controls:PhoneApplicationPage.ApplicationBar>
+
 </wp8:NavigationPage>

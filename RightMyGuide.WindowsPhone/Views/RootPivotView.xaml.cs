@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -10,21 +11,48 @@ using Microsoft.Phone.Shell;
 using RightMyGuide.WindowsPhone.ViewModels;
 using SuiteValue.UI.WP8;
 
-namespace RightMyGuide.WindowsPhone.Views
-{
-    public partial class RootPivotView : NavigationPage
-    {
-        public RootPivotView()
-        {
-            InitializeComponent();
-            ViewModel = new RootPivotViewModel();
+namespace RightMyGuide.WindowsPhone.Views {
+	public partial class RootPivotView : NavigationPage {
+		public RootPivotView() {
+			InitializeComponent();
+			ViewModel = new RootPivotViewModel();
 
-        }
+			PhoneApplicationService.Current.Deactivated += AppDeactivated;
+			PhoneApplicationService.Current.Activated += AppActivated;
 
-        private void Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+			Loaded += delegate {
+				int index;
+				if(IsolatedStorageSettings.ApplicationSettings.TryGetValue("mainPivotIndex", out index))
+					pivot.SelectedIndex = index;
+			};
+		}
 
-            (ViewModel as RootPivotViewModel).ActivatePivotItem((sender as Pivot).SelectedIndex);
-        }
-    }
+		private void AppActivated(object sender, ActivatedEventArgs e) {
+			RestorePivotIndex();
+		}
+
+		void AppDeactivated(object sender, DeactivatedEventArgs e) {
+			IsolatedStorageSettings.ApplicationSettings["mainPivotIndex"] = pivot.SelectedIndex;
+		}
+
+		private void RestorePivotIndex() {
+			if(PhoneApplicationService.Current.State.ContainsKey("mainPivotIndex")) {
+				pivot.SelectedIndex = (int)PhoneApplicationService.Current.State["mainPivotIndex"];
+			}
+		}
+
+		protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e) {
+			base.OnNavigatedTo(e);
+		}
+
+		protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e) {
+			base.OnNavigatedFrom(e);
+			PhoneApplicationService.Current.State["mainPivotIndex"] = pivot.SelectedIndex;
+		}
+
+		private void Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+			(ViewModel as RootPivotViewModel).ActivatePivotItem((sender as Pivot).SelectedIndex);
+		}
+	}
 }

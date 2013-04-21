@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using RightMyGuide.WindowsPhone.ViewModels;
 using SuiteValue.UI.WP8;
 
 namespace RightMyGuide.WindowsPhone.Views
@@ -16,6 +17,16 @@ namespace RightMyGuide.WindowsPhone.Views
         public ShowView()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (!e.IsNavigationInitiator && e.NavigationMode == NavigationMode.New)
+            {
+                ViewModel = new ShowViewModel();
+            }
+            base.OnNavigatedTo(e);
+            
         }
 
         private void ImageBrush_OnImageFailed(object sender, ExceptionRoutedEventArgs e)

@@ -19,12 +19,14 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-       <Grid.RowDefinitions>
-           <RowDefinition Height="Auto"/>
-           <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <!--Notification="2 New&#x0d;&#x0a;Receipes"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <!--Notification="2 New&#x0d;&#x0a;Receipes"
                           DisplayNotification="True"-->
 
         <toolkit:HubTile Margin="12,12,0,0"
@@ -52,6 +54,14 @@
                           Size="Large"
                          Tap="TapOnTile"
                           />
-    </Grid>
+            <toolkit:HubTile Grid.Row="3"
+            Margin="12,12,0,0"
+                          Source="\Assets\Icons\Eretz.jpg"
+                          Title="Local TV"
+                          GroupTag="Main"
+                          Size="Large"
+                         Tap="TapOnTile"
+                          />
+        </Grid>
     </ScrollViewer>
 </UserControl>

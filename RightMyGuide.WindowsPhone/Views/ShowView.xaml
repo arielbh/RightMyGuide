@@ -124,13 +124,9 @@
     <controls:PhoneApplicationPage.ApplicationBar>
         <controls:ApplicationBar IsVisible="True" Mode="Minimized">
             <controls:ApplicationBarIconButton IconUri="/Assets/Icons/favs.addto.png" Text="Favorite" Command="{Binding AddToFavoriteCommand, Mode=OneTime}"  />
-            <!--<controls:ApplicationBarIconButton IconUri="/Assets/Icons/minus.png" Text="הקטן" Command="{Binding ReduceFontSizeCommand, Mode=OneTime}"/>
-
-            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/edit.png" Text="תגובות" Command="{Binding GoToTalkbackCommand, Mode=OneTime}"  />
-            <controls:ApplicationBar.MenuItems>
-                <controls:ApplicationBarMenuItem Text="שתף באימייל" Command="{Binding EmailArticleCommand, Mode=OneTime}"   />
-                <controls:ApplicationBarMenuItem Text="שתף ברשתות חברתיות" Command="{Binding ShareArticleCommand, Mode=OneTime}"   />
-            </controls:ApplicationBar.MenuItems>-->
+            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/like.png" Text="Pin" Command="{Binding PinToStartCommand, Mode=OneTime}"  />
+            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/share.png" Text="Share" Command="{Binding ShareCommand, Mode=OneTime}"  />
+            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/folder.png" Text="Lock" Command="{Binding LockScreenCommand, Mode=OneTime}"  />
         </controls:ApplicationBar>
     </controls:PhoneApplicationPage.ApplicationBar>
 </wp8:NavigationPage>

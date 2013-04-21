@@ -12,18 +12,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A4BFFB
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightMyGuide.BackgroundAgent", "RightMyGuide.BackgroundAgent\RightMyGuide.BackgroundAgent.csproj", "{C3D7AF85-871C-4702-967E-91DB950A322C}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs11.codevalue.net/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = RightMyGuide.DataAccess\\RightMyGuide.DataAccess.csproj
-		SccProjectName1 = RightMyGuide.DataAccess
-		SccLocalPath1 = RightMyGuide.DataAccess
-		SccProjectUniqueName2 = RightMyGuide.WindowsPhone\\RightMyGuide.WindowsPhone.csproj
-		SccProjectName2 = RightMyGuide.WindowsPhone
-		SccLocalPath2 = RightMyGuide.WindowsPhone
+		SccProjectUniqueName0 = RightMyGuide.DataAccess\\RightMyGuide.DataAccess.csproj
+		SccProjectName0 = RightMyGuide.DataAccess
+		SccLocalPath0 = RightMyGuide.DataAccess
+		SccProjectUniqueName1 = RightMyGuide.WindowsPhone\\RightMyGuide.WindowsPhone.csproj
+		SccProjectName1 = RightMyGuide.WindowsPhone
+		SccLocalPath1 = RightMyGuide.WindowsPhone
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = RightMyGuide.BackgroundAgent\\RightMyGuide.BackgroundAgent.csproj
+		SccProjectName3 = RightMyGuide.BackgroundAgent
+		SccLocalPath3 = RightMyGuide.BackgroundAgent
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +69,18 @@ Global
 		{D180EFEF-9D84-4522-BF43-B8B80717ABAD}.Release|x86.ActiveCfg = Release|x86
 		{D180EFEF-9D84-4522-BF43-B8B80717ABAD}.Release|x86.Build.0 = Release|x86
 		{D180EFEF-9D84-4522-BF43-B8B80717ABAD}.Release|x86.Deploy.0 = Release|x86
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Debug|ARM.Build.0 = Debug|ARM
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Debug|x86.ActiveCfg = Debug|x86
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Debug|x86.Build.0 = Debug|x86
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Release|ARM.ActiveCfg = Release|ARM
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Release|ARM.Build.0 = Release|ARM
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Release|x86.ActiveCfg = Release|x86
+		{C3D7AF85-871C-4702-967E-91DB950A322C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

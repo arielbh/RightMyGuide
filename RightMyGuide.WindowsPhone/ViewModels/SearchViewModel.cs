@@ -1,6 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Threading;
 using RightMyGuide.DataAccess.ServiceReference;
+using ShakeGestures;
 using SuiteValue.UI.WP8;
+using Windows.Phone.Speech.Synthesis;
 
 namespace RightMyGuide.WindowsPhone.ViewModels
 {
@@ -12,12 +18,26 @@ namespace RightMyGuide.WindowsPhone.ViewModels
         {
             base.OnNavigatedTo(mode, parameter, isNavigationInitiator);
             App.IMdbServiceClient.SearchShowByTitleCompleted += IMdbServiceClient_SearchShowByTitleCompleted;
+            // register shake event
+            ShakeGesturesHelper.Instance.ShakeGesture += Instance_ShakeGesture;
+
+            // optional, set parameters
+            ShakeGesturesHelper.Instance.MinimumRequiredMovesForShake = 3;
+            ShakeGesturesHelper.Instance.Active = true;
+        }
+
+        private void Instance_ShakeGesture(object sender, ShakeGestureEventArgs e)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(Results.Clear);
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationMode mode)
         {
             base.OnNavigatedFrom(mode);
             App.IMdbServiceClient.SearchShowByTitleCompleted -= IMdbServiceClient_SearchShowByTitleCompleted;
+            ShakeGesturesHelper.Instance.Active = false;
+            ShakeGesturesHelper.Instance.ShakeGesture -= Instance_ShakeGesture;
+
 
         }
 
@@ -28,6 +48,16 @@ namespace RightMyGuide.WindowsPhone.ViewModels
                 IsInAsync = false;
                 if (e.Cancelled || e.Error != null) return;
                 Results = e.Result;
+                CallOutFirstShow(Results.FirstOrDefault());
+            }
+        }
+
+        private void CallOutFirstShow(TVShow show)
+        {
+            if (show != null)
+            {
+                var synth = new SpeechSynthesizer();
+                synth.SpeakTextAsync(show.Title);
             }
         }
 

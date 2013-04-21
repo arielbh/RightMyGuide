@@ -7,9 +7,9 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using RightMyGuide.DataAccess;
 using RightMyGuide.DataAccess.ServiceReference;
 using RightMyGuide.WindowsPhone.Resources;
-using RightMyGuide.WindowsPhone.Services;
 
 namespace RightMyGuide.WindowsPhone
 {
@@ -77,6 +77,7 @@ namespace RightMyGuide.WindowsPhone
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
@@ -129,7 +130,7 @@ namespace RightMyGuide.WindowsPhone
 
             // Handle reset requests for clearing the backstack
             RootFrame.Navigated += CheckForResetNavigation;
-
+            RootFrame.UriMapper = new AssociationUriMapper();
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
         }

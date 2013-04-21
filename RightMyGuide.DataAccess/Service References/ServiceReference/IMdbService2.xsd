@@ -24,6 +24,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="includeEpisodes" type="xs:boolean" />
+        <xs:element minOccurs="0" name="includeFutureEpisodes" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -39,6 +40,7 @@
       <xs:sequence>
         <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ids" nillable="true" type="q3:ArrayOfstring" />
         <xs:element minOccurs="0" name="includeEpisodes" type="xs:boolean" />
+        <xs:element minOccurs="0" name="includeFutureEpisodes" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -88,6 +90,20 @@
   <xs:element name="ClearReviewsResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFutureEpisodes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFutureEpisodesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/IMdbService" minOccurs="0" name="GetFutureEpisodesResult" nillable="true" type="q6:ArrayOfEpisode" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -99,10 +99,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AssociationUriMapper.cs" />
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
@@ -110,7 +108,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\FavoritesService.cs" />
     <Compile Include="ViewModels\FavoritesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RootPivotViewModel.cs" />
@@ -137,10 +134,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\StandardTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -171,9 +164,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\Eretz.jpg" />
     <Content Include="Assets\Icons\favs.addto.png" />
+    <Content Include="Assets\Icons\folder.png" />
     <Content Include="Assets\Icons\GOT.png" />
+    <Content Include="Assets\Icons\like.png" />
+    <Content Include="Assets\Icons\LockIcon.png" />
+    <Content Include="Assets\Icons\microphone.png" />
     <Content Include="Assets\Icons\Search.png" />
+    <Content Include="Assets\Icons\share.png" />
     <Content Include="Assets\Icons\TBBT.png" />
     <Content Include="Assets\Icons\V.jpg" />
     <Content Include="README_FIRST.txt" />
@@ -216,6 +215,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RightMyGuide.BackgroundAgent\RightMyGuide.BackgroundAgent.csproj">
+      <Project>{C3D7AF85-871C-4702-967E-91DB950A322C}</Project>
+      <Name>RightMyGuide.BackgroundAgent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RightMyGuide.DataAccess\RightMyGuide.DataAccess.csproj">
       <Project>{2A9C5EE0-C704-4BC1-95E8-3E42599A83B6}</Project>
       <Name>RightMyGuide.DataAccess</Name>
@@ -225,6 +228,9 @@
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ShakeGestures">
+      <HintPath>.\ShakeGestures.dll</HintPath>
     </Reference>
     <Reference Include="SuiteValue.UI.MVVM">
       <HintPath>..\packages\SuiteValue.UI.MVVM.1.0.0\lib\portable-net45+sl5+wp8+win8\SuiteValue.UI.MVVM.dll</HintPath>
