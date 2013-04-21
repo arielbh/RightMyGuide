@@ -17,7 +17,36 @@ namespace RightMyGuide.WindowsPhone.ViewModels
             _children = new CommandableViewModelBase[] { MainViewModel, FavoritesViewModel };
         }
 
-   
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationMode mode, System.Collections.Generic.IDictionary<string, string> parameter, bool isNavigationInitiator)
+        {
+            base.OnNavigatedTo(mode, parameter, isNavigationInitiator);
+            StartTileLiveAgent();
+
+        }
+
+        private void StartTileLiveAgent()
+        {
+            try
+            {
+                var taskName = "PeriodicAgent";
+                var periodicTask = ScheduledActionService.Find(taskName) as PeriodicTask;
+                if (periodicTask != null)
+                {
+                    ScheduledActionService.Remove(taskName);
+                }
+                periodicTask = new PeriodicTask(taskName) { Description = "Right My Guide tile notifications agent." };
+
+                ScheduledActionService.Add(periodicTask);
+#if(!DEBUG_AGENT)
+                ScheduledActionService.LaunchForTest(taskName, TimeSpan.FromSeconds(20));
+#endif
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         private MainViewModel _mainViewModel;
 
