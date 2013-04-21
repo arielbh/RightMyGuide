@@ -83,7 +83,8 @@ namespace RightMyGuide.BackgroundAgent
                     var tileData = new CycleTileData()
                     {
                         Title = "Favorites",
-                        CycleImages = images
+                        CycleImages = images,
+                        Count = 3
                     };
 
 

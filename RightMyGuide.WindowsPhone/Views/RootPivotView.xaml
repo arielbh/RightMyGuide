@@ -36,4 +36,11 @@
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>
+
+    <controls:PhoneApplicationPage.ApplicationBar>
+        <controls:ApplicationBar IsVisible="True" Mode="Default">
+            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/microphone.png" Text="Command" Command="{Binding StartSpeechCommand, Mode=OneTime}"  />
+            </controls:ApplicationBar>
+    </controls:PhoneApplicationPage.ApplicationBar>
+
 </wp8:NavigationPage>

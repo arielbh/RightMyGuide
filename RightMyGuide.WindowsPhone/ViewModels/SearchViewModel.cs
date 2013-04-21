@@ -37,9 +37,18 @@ namespace RightMyGuide.WindowsPhone.ViewModels
                 IsInAsync = false;
                 if (e.Cancelled || e.Error != null) return;
                 Results = e.Result;
+                CallOutFirstShow(Results.FirstOrDefault());
+
             }
         }
-
+        private void CallOutFirstShow(TVShow show)
+        {
+            if (show != null)
+            {
+                var synth = new SpeechSynthesizer();
+                synth.SpeakTextAsync(show.Title);
+            }
+        }
 
 
         public ObservableCollection<TVShow> Results

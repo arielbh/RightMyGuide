@@ -11,54 +11,48 @@ using Microsoft.Phone.Shell;
 using RightMyGuide.WindowsPhone.ViewModels;
 using SuiteValue.UI.WP8;
 
-namespace RightMyGuide.WindowsPhone.Views
-{
-    public partial class RootPivotView : NavigationPage
-    {
-        public RootPivotView()
-        {
-            InitializeComponent();
-            ViewModel = new RootPivotViewModel();
-            PhoneApplicationService.Current.Deactivated += AppDeactivated;
-            PhoneApplicationService.Current.Activated += AppActivated;
+namespace RightMyGuide.WindowsPhone.Views {
+	public partial class RootPivotView : NavigationPage {
+		public RootPivotView() {
+			InitializeComponent();
+			ViewModel = new RootPivotViewModel();
 
-            Loaded += delegate
-            {
-                int index;
-                if (IsolatedStorageSettings.ApplicationSettings.TryGetValue("mainPivotIndex", out index))
-                    pivot.SelectedIndex = index;
-            };
-        }
+			PhoneApplicationService.Current.Deactivated += AppDeactivated;
+			PhoneApplicationService.Current.Activated += AppActivated;
 
-        private void AppActivated(object sender, ActivatedEventArgs e)
-        {
-            RestorePivotIndex();
-        }
+			Loaded += delegate {
+				int index;
+				if(IsolatedStorageSettings.ApplicationSettings.TryGetValue("mainPivotIndex", out index))
+					pivot.SelectedIndex = index;
+			};
+		}
 
-        void AppDeactivated(object sender, DeactivatedEventArgs e)
-        {
-            IsolatedStorageSettings.ApplicationSettings["mainPivotIndex"] = pivot.SelectedIndex;
-        }
+		private void AppActivated(object sender, ActivatedEventArgs e) {
+			RestorePivotIndex();
+		}
 
-        private void RestorePivotIndex()
-        {
-            if (PhoneApplicationService.Current.State.ContainsKey("mainPivotIndex"))
-            {
-                pivot.SelectedIndex = (int)PhoneApplicationService.Current.State["mainPivotIndex"];
-            }
-        }
-  
+		void AppDeactivated(object sender, DeactivatedEventArgs e) {
+			IsolatedStorageSettings.ApplicationSettings["mainPivotIndex"] = pivot.SelectedIndex;
+		}
 
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            PhoneApplicationService.Current.State["mainPivotIndex"] = pivot.SelectedIndex;
-        }
+		private void RestorePivotIndex() {
+			if(PhoneApplicationService.Current.State.ContainsKey("mainPivotIndex")) {
+				pivot.SelectedIndex = (int)PhoneApplicationService.Current.State["mainPivotIndex"];
+			}
+		}
 
-        private void Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+		protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e) {
+			base.OnNavigatedTo(e);
+		}
 
-            (ViewModel as RootPivotViewModel).ActivatePivotItem((sender as Pivot).SelectedIndex);
-        }
-    }
+		protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e) {
+			base.OnNavigatedFrom(e);
+			PhoneApplicationService.Current.State["mainPivotIndex"] = pivot.SelectedIndex;
+		}
+
+		private void Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+			(ViewModel as RootPivotViewModel).ActivatePivotItem((sender as Pivot).SelectedIndex);
+		}
+	}
 }

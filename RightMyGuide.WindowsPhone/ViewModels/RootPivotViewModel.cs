@@ -99,7 +99,31 @@ namespace RightMyGuide.WindowsPhone.ViewModels
 
         }
 
-     
+        private DelegateCommand _startSpeechCommand;
+
+        public DelegateCommand StartSpeechCommand
+        {
+            get
+            {
+                return _startSpeechCommand ?? (_startSpeechCommand = new DelegateCommand(
+                                                     async () =>
+                                                     {
+                                                         SpeechRecognizerUI recognizer = new SpeechRecognizerUI();
+                                                         recognizer.Settings.ExampleText = "Ex. Search, Favroites";
+                                                         recognizer.Settings.ListenText = "Listening...";
+                                                         var command = await recognizer.RecognizeWithUIAsync();
+                                                         if (command != null)
+                                                         {
+                                                             if (command.RecognitionResult.Text == "Search.")
+                                                             {
+                                                                 Navigate(new SearchViewModel());
+                                                             }
+                                                         }
+
+                                                     }));
+            }
+        }
+
 
 
     }
