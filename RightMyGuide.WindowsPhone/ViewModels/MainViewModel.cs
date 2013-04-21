@@ -24,14 +24,6 @@ namespace RightMyGuide.WindowsPhone.ViewModels
             {
                 _navigator.Navigate(new SearchViewModel());
             }
-            if (title == "Local TV")
-            {
-                _navigator.Navigate(new SearchViewModel(), new Dictionary<string, string>
-                {
-                    { "Kind", "Local"}
-                });
-            }
-            
         }
     }
 }

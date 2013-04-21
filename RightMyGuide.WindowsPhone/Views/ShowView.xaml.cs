@@ -28,14 +28,5 @@ namespace RightMyGuide.WindowsPhone.Views
             base.OnNavigatedTo(e);
             
         }
-
-        private void ImageBrush_OnImageFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-            
-        }
-
-        private void ImageBrush_OnImageOpened(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

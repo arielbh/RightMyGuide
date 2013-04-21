@@ -124,9 +124,6 @@
     <controls:PhoneApplicationPage.ApplicationBar>
         <controls:ApplicationBar IsVisible="True" Mode="Minimized">
             <controls:ApplicationBarIconButton IconUri="/Assets/Icons/favs.addto.png" Text="Favorite" Command="{Binding AddToFavoriteCommand, Mode=OneTime}"  />
-            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/like.png" Text="Pin" Command="{Binding PinToStartCommand, Mode=OneTime}"  />
-            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/share.png" Text="Share" Command="{Binding ShareCommand, Mode=OneTime}"  />
-            <controls:ApplicationBarIconButton IconUri="/Assets/Icons/folder.png" Text="Lock" Command="{Binding LockScreenCommand, Mode=OneTime}"  />
         </controls:ApplicationBar>
     </controls:PhoneApplicationPage.ApplicationBar>
 </wp8:NavigationPage>
